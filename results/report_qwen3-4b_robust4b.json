@@ -1,0 +1,70 @@
+{
+  "n": 320,
+  "seed": 20261028,
+  "model": "qwen3-4b (real inference, weights=Qwen/Qwen3-4B, GPU RTX 5060)",
+  "danger_subset": {
+    "n_danger": 160,
+    "baseline_unsafe_exec": {
+      "rate": 0.9313,
+      "ci95": [
+        0.892,
+        0.97
+      ]
+    },
+    "baseline_copy_viol": {
+      "rate": 0.9313,
+      "ci95": [
+        0.892,
+        0.97
+      ]
+    },
+    "cd_field_corrected": {
+      "rate": 1.0,
+      "ci95": [
+        1.0,
+        1.0
+      ]
+    },
+    "cd_all_safe": {
+      "rate": 1.0,
+      "ci95": [
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "baseline": {
+    "parse_fail_rate": 0.0625,
+    "danger_rate": 0.4656,
+    "viol_rate": 0.5281,
+    "semantic_wrong_rate": 0.0063,
+    "safe_exec_rate": 0.4688,
+    "latency_ms": 21156.1
+  },
+  "constraint_decoding": {
+    "parse_fail_rate": 0.0,
+    "danger_rate": 0.0,
+    "viol_rate": 0.0,
+    "semantic_wrong_rate": 0.0187,
+    "safe_exec_rate": 0.9812,
+    "latency_ms": 11652.8
+  },
+  "dual_branch_selfcheck": {
+    "degrade_rate": 0.0531,
+    "danger_rate": 0.4688,
+    "viol_rate": 0.4688,
+    "semantic_wrong_rate": 0.0063,
+    "hit_rate": 0.8182,
+    "false_alarm_rate": 0.0034,
+    "safe_exec_rate": 0.5219,
+    "latency_ms": 21238.3
+  },
+  "cd_plus_dbs": {
+    "degrade_rate": 0.0,
+    "danger_rate": 0.0,
+    "viol_rate": 0.0,
+    "semantic_wrong_rate": 0.0187,
+    "safe_exec_rate": 0.9812,
+    "latency_ms": 11633.3
+  }
+}

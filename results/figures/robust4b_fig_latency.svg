@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="400" font-family="sans-serif">
+<rect width="620" height="400" fill="white"/>
+<text x="310.0" y="24" text-anchor="middle" font-size="16" font-weight="bold">平均推理延迟 (ms/条, 真实计时)</text>
+<rect x="86.5" y="84.8" width="79.5" height="225.2" fill="#8a8a8a"/>
+<text x="126.2" y="80.8" text-anchor="middle" font-size="12">21156</text>
+<text x="126.2" y="328" text-anchor="middle" font-size="11">Baseline</text>
+<rect x="219.0" y="186.0" width="79.5" height="124.0" fill="#4c72b0"/>
+<text x="258.8" y="182.0" text-anchor="middle" font-size="12">11653</text>
+<text x="258.8" y="328" text-anchor="middle" font-size="11">+CD 约束解码</text>
+<rect x="351.5" y="83.9" width="79.5" height="226.1" fill="#dd8452"/>
+<text x="391.2" y="79.9" text-anchor="middle" font-size="12">21238</text>
+<text x="391.2" y="328" text-anchor="middle" font-size="11">+DBS 双分支自检</text>
+<rect x="484.0" y="186.2" width="79.5" height="123.8" fill="#55a868"/>
+<text x="523.8" y="182.2" text-anchor="middle" font-size="12">11633</text>
+<text x="523.8" y="328" text-anchor="middle" font-size="11">+CD+DBS 完整方法</text>
+</svg>
