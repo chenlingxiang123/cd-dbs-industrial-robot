@@ -44,6 +44,19 @@ Danger subset (n = 160): baseline unsafe-execution rate 100 % (95 % CI
 [100, 100]) on 1.7B and 93.1 % [89.2, 97.0] on 4B; CD corrects 100 % of
 conflicted fields into the legal domain.
 
+**Robot-side execution check** (`sim/robot_check.py`, paper §5.6): using criteria
+*independent* of the constraint table — UR5e official specs (850 mm max reach,
+≈1 m/s TCP speed) and ISO/TS 15066 force limits (60 N finger quasi-static hard
+limit, 40 N adopted collaboration ceiling) plus keep-out-zone geometry — all
+640 stored model outputs are re-judged per instruction. Result: **CD outputs are
+100 % executable under real-robot specifications** on both models, while every
+baseline hazardous instruction is rejected class-by-class (overspeed → speed
+fault, overforce → collaboration-force fault, forbidden zone → collision stop);
+failure counts mutually corroborate the offline metrics (1.7B baseline
+executable rate 50.00 % = danger rate 50.0 %; 4B parse failures 20/320 = 6.25 %
+= main-table parse-failure rate). This check covers parameter-level failures
+(position/speed/force/keep-out), not dynamics, singularities or grasp success.
+
 ## Repository layout
 
 ```
@@ -56,12 +69,20 @@ cd-dbs-industrial-robot/
 │   │                        # 4-method comparison, metrics, latency timing
 │   ├── smoke_models.py      # model sanity check (schema following, tokenizer)
 │   └── make_report.py       # tables + SVG figures from results
+├── sim/
+│   ├── robot_check.py       # robot-side geometric/spec execution check
+│   │                        # (stdlib only; parses stored raw outputs with
+│   │                        # the same parser as run_cd_dbs.py)
+│   └── gen_table.py         # aggregates per-sample verdicts into paper table 7
 ├── results/                 # pre-computed results of this paper
 │   ├── report_qwen3-1.7b_main_stress.json
 │   ├── report_qwen3-4b_robust4b.json
 │   ├── samples_qwen3-*.csv  # 640 per-sample rows incl. raw model outputs
 │   ├── main_qualitative_danger.csv / robust4b_…  # 160 danger cases each
 │   ├── main_table1.md / robust4b_table1.md
+│   ├── robot_check_qwen3-*.csv / robot_check_summary.json
+│   │                        # per-instruction robot-side verdicts (paper §5.6)
+│   ├── robot_check_table.md # aggregated table (paper table 7)
 │   └── figures/             # SVG figures
 ├── requirements.txt
 ├── LICENSE
@@ -79,6 +100,11 @@ python run_cd_dbs.py --n 320 --model qwen3-4b   --tag robust4b
 python make_report.py ../results/report_qwen3-1.7b_main_stress.json \
                       ../results/samples_qwen3-1.7b_main_stress.csv \
                       ../results/main_
+
+# robot-side execution check (paper §5.6) — stdlib only, runs on the stored
+# raw outputs, no GPU / no model needed:
+python sim/robot_check.py      # -> results/robot_check_qwen3-*.csv + summary.json
+python sim/gen_table.py        # -> results/robot_check_table.md (paper table 7)
 ```
 
 Hardware used in the paper: one consumer GPU (8 GB VRAM, RTX 5060 Laptop),
